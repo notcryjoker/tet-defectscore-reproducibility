@@ -4,7 +4,15 @@
 #   背景：TCGA-THYM 死亡事件仅 6-9 例 → OS 不可行，RFS（NTE 复发）唯一终点
 #   克制原则：仅单变量 Cox + DefectScore 二分 KM；禁 ML 预后模型（事件数不足）
 # =============================================================================
-source("/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/00_config.R")
+.ofile <- sys.frame(1)$ofile
+if (is.null(.ofile) || !nzchar(.ofile)) .ofile <- "."
+.cfg_cands <- c(
+  file.path(Sys.getenv("TET_ROOT", "."), "code", "00_config.R"),
+  file.path(dirname(.ofile), "00_config.R"),
+  "code/00_config.R", "00_config.R"
+)
+.cfg <- .cfg_cands[sapply(.cfg_cands, file.exists)]
+if (length(.cfg) == 0L) stop("00_config.R not found; set TET_ROOT or run from deposit root") else source(.cfg[1])
 load_libs(c("survival", "survminer", "data.table", "ggplot2"))
 
 m <- readRDS(file.path(DIR_PROC, "merged_defect_clinical.rds"))

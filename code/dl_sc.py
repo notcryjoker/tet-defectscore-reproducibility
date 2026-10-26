@@ -1,6 +1,6 @@
 import urllib.request, os, time, sys
 base="https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284479/suppl"
-out="/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/GSE284479/scRNA"
+out=os.path.join(os.environ.get("TET_ROOT", "."), "data/raw/GSE284479/scRNA")
 os.makedirs(out, exist_ok=True)
 keep=lambda fn: (any(k in fn for k in ["matrix.mtx.gz","barcodes.tsv.gz","features.tsv.gz"]) or "contig_annotations" in fn)
 targets=[]

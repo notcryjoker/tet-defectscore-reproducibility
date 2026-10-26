@@ -1,11 +1,11 @@
 #!/bin/bash
 set -u
-OUT=/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/TCGA-THYM/gdc
+OUT=${TET_ROOT:-.}/data/raw/TCGA-THYM/gdc
 mkdir -p "$OUT"
 python3 - << 'PY'
 import json, subprocess, os
 files = json.load(open("/tmp/thym_star_files.json"))
-out = "/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/TCGA-THYM/gdc"
+out = os.path.join(os.environ.get("TET_ROOT", "."), "data/raw/TCGA-THYM/gdc")
 ok = skip = fail = 0
 for i, f in enumerate(files, 1):
     d = os.path.join(out, f["file_id"])

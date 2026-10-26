@@ -21,7 +21,7 @@ cd $BASE
 for step in 01_tcga_prepare 02_scores 03_associations 04_survival 05_external 06_icb 07_figures 09_fig1_design 08_results_fill; do
   echo "===== $step START $(date) =====" >> $PL
   if Rscript code/$step.R >> $PL 2>&1; then
-    echo "[driver] $step OK $(date)"" >> $PL
+    echo "[driver] $step OK $(date)" >> $PL
   else
     rc=$?
     echo "[driver] $step FAILED rc=$rc ($(date)) -- continuing" >> $PL

@@ -3,7 +3,15 @@
 # 08_results_fill.R —— 读取各步 .rds 结果，编译 Results 文本 + 更新稿件
 #   输出: results/results_summary.md（供人工填入 manuscript_draft.md §3）
 # =============================================================================
-source("/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/00_config.R")
+.ofile <- sys.frame(1)$ofile
+if (is.null(.ofile) || !nzchar(.ofile)) .ofile <- "."
+.cfg_cands <- c(
+  file.path(Sys.getenv("TET_ROOT", "."), "code", "00_config.R"),
+  file.path(dirname(.ofile), "00_config.R"),
+  "code/00_config.R", "00_config.R"
+)
+.cfg <- .cfg_cands[sapply(.cfg_cands, file.exists)]
+if (length(.cfg) == 0L) stop("00_config.R not found; set TET_ROOT or run from deposit root") else source(.cfg[1])
 
 out <- c()
 cat_line <- function(...) { line <- paste(...); out <<- c(out, line); cat(line, "\n") }

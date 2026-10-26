@@ -5,7 +5,15 @@
 #   2) 合并 GDC 临床 biotab（MG / WHO / Masaoka）+ NTE（复发）表
 #   3) 过滤非 TET 诊断，输出 expr_counts.rds + clinical_master.rds
 # =============================================================================
-source("/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/00_config.R")
+.ofile <- sys.frame(1)$ofile
+if (is.null(.ofile) || !nzchar(.ofile)) .ofile <- "."
+.cfg_cands <- c(
+  file.path(Sys.getenv("TET_ROOT", "."), "code", "00_config.R"),
+  file.path(dirname(.ofile), "00_config.R"),
+  "code/00_config.R", "00_config.R"
+)
+.cfg <- .cfg_cands[sapply(.cfg_cands, file.exists)]
+if (length(.cfg) == 0L) stop("00_config.R not found; set TET_ROOT or run from deposit root") else source(.cfg[1])
 load_libs(c("TCGAbiolinks", "data.table", "SummarizedExperiment"))
 
 clin_dir <- file.path(DIR_RAW, "TCGA-THYM", "clinical")

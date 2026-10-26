@@ -73,7 +73,7 @@ THYMO_SIGNATURES <- list(
 # 写入 results，供下游脚本 source
 if (!exists("SIG_OUT", mode="numeric")) SIG_OUT <- NULL
 saveRDS(THYMO_SIGNATURES,
-        file = "/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/thymo_signatures.rds")
+        file = "file.path(Sys.getenv("TET_ROOT", "."), "code", "thymo_signatures.rds")")
 
 cat("预锁定基因集就绪:\n")
 for (nm in names(THYMO_SIGNATURES))

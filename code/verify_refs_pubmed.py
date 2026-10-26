@@ -7,7 +7,7 @@
   2) esummary 取回 DOI、卷期页、出版类型
   3) 交叉验证：返回记录的标题须与稿件条目标题一致（防止张冠李戴）
   4) 检查 Retracted Publication / Expression of Concern 标记
-输出: /workspace/project/audit_report/ref_verification_pubmed.md
+输出: project/audit_report/ref_verification_pubmed.md
 """
 import json
 import re
@@ -16,8 +16,8 @@ import urllib.parse
 import urllib.request
 
 BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-MANUSCRIPT = "/workspace/manuscript_draft.md"
-OUT = "/workspace/project/audit_report/ref_verification_pubmed.md"
+MANUSCRIPT = os.environ.get("MS_PATH", "manuscript_draft.md")
+OUT = os.environ.get("REF_OUT", "project/audit_report/ref_verification_pubmed.md")
 
 # 稿件条目 -> 检索词（标题词 + 第一作者姓 + 年份）；仅收录缺 DOI/PMID 的条目
 TARGETS = [

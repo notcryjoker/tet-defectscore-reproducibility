@@ -1,6 +1,6 @@
 # TET DefectScore — Analysis Code & Supplementary Data
 
-> **Development source (GitHub):** https://github.com/notcryjoker/tet-defectscore-reproducibility (tag v1.0)
+> **Development source (GitHub):** https://github.com/notcryjoker/tet-defectscore-reproducibility (tag v1.1)
 > **Archival snapshot (Zenodo):** https://doi.org/10.5281/zenodo.23643504
 
 **Reproducibility package** for the study *"Thymopoiesis DefectScore is not associated

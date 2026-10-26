@@ -4,7 +4,15 @@
 #   依赖: merged_defect_clinical.rds, external_defect.rds, association_results.rds
 #   说明: WHO 图仅用纯组织学（混合型已置 NA，绘图时自动剔除并在正文注明 n=6）
 # =============================================================================
-source("/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/00_config.R")
+.ofile <- sys.frame(1)$ofile
+if (is.null(.ofile) || !nzchar(.ofile)) .ofile <- "."
+.cfg_cands <- c(
+  file.path(Sys.getenv("TET_ROOT", "."), "code", "00_config.R"),
+  file.path(dirname(.ofile), "00_config.R"),
+  "code/00_config.R", "00_config.R"
+)
+.cfg <- .cfg_cands[sapply(.cfg_cands, file.exists)]
+if (length(.cfg) == 0L) stop("00_config.R not found; set TET_ROOT or run from deposit root") else source(.cfg[1])
 load_libs(c("ggplot2","ggpubr","data.table","patchwork","RColorBrewer"))
 
 m <- readRDS(file.path(DIR_PROC, "merged_defect_clinical.rds"))

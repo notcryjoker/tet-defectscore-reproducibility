@@ -1,6 +1,6 @@
 #!/bin/bash
 # 并行下载 TCGA-THYM STAR-Counts（6 并发；每文件独立 wget -c 可断点续传）
-OUT=/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/TCGA-THYM/gdc
+OUT=${TET_ROOT:-.}/data/raw/TCGA-THYM/gdc
 mkdir -p "$OUT"
 python3 - << 'PY' > /tmp/dl_jobs.txt
 import json

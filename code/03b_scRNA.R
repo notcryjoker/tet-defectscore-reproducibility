@@ -6,7 +6,15 @@
 #   输出: fig2_scRNA_umap.png（UMAP 着色签名活性）+ fig3_scRNA_sig_panel.png
 #   定位: 证明预锁定基因集在真实单细胞数据中非冗余、可分离（验证而非重新定义）
 # =============================================================================
-source("/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/00_config.R")
+.ofile <- sys.frame(1)$ofile
+if (is.null(.ofile) || !nzchar(.ofile)) .ofile <- "."
+.cfg_cands <- c(
+  file.path(Sys.getenv("TET_ROOT", "."), "code", "00_config.R"),
+  file.path(dirname(.ofile), "00_config.R"),
+  "code/00_config.R", "00_config.R"
+)
+.cfg <- .cfg_cands[sapply(.cfg_cands, file.exists)]
+if (length(.cfg) == 0L) stop("00_config.R not found; set TET_ROOT or run from deposit root") else source(.cfg[1])
 load_libs(c("Matrix", "scater", "data.table", "ggplot2", "uwot", "gridExtra", "viridis"))
 
 sc_dir <- file.path(DIR_RAW, "GSE147520", "scRNA")

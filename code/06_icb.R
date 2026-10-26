@@ -5,7 +5,15 @@
 #   增强：从 characteristics 表识别应答标签；可行时输出 Fig 9；失败优雅降级
 #   定位：探索性假设生成（非确证），讨论衔接 irAE/疗效
 # =============================================================================
-source("/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/code/00_config.R")
+.ofile <- sys.frame(1)$ofile
+if (is.null(.ofile) || !nzchar(.ofile)) .ofile <- "."
+.cfg_cands <- c(
+  file.path(Sys.getenv("TET_ROOT", "."), "code", "00_config.R"),
+  file.path(dirname(.ofile), "00_config.R"),
+  "code/00_config.R", "00_config.R"
+)
+.cfg <- .cfg_cands[sapply(.cfg_cands, file.exists)]
+if (length(.cfg) == 0L) stop("00_config.R not found; set TET_ROOT or run from deposit root") else source(.cfg[1])
 load_libs(c("GEOquery", "data.table", "edgeR", "org.Hs.eg.db", "ggplot2"))
 
 gse <- "GSE181815"

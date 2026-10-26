@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 BASE="https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284479/suppl"
-OUT="/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/GSE284479/scRNA"
+OUT="${TET_ROOT:-.}/data/raw/GSE284479/scRNA"
 mkdir -p "$OUT"
 cd "$OUT"
 # parse filelist: download MTX, barcodes, features, and TCR contig annotations
 python3 - << 'PY'
 import urllib.request, os
 base="https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284479/suppl"
-out="/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/GSE284479/scRNA"
+out=os.path.join(os.environ.get("TET_ROOT", "."), "data/raw/GSE284479/scRNA")
 os.makedirs(out, exist_ok=True)
 for line in open("/tmp/gse284479_fl.txt"):
     if not line.startswith("File"): continue
@@ -25,7 +25,7 @@ PY
 python3 - << 'PY'
 import urllib.request, os, sys
 base="https://ftp.ncbi.nlm.nih.gov/geo/series/GSE284nnn/GSE284479/suppl"
-out="/root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d53-0f0283e72000/data/raw/GSE284479/scRNA"
+out=os.path.join(os.environ.get("TET_ROOT", "."), "data/raw/GSE284479/scRNA")
 os.makedirs(out, exist_ok=True)
 n=0
 for line in open("/tmp/gse284479_fl.txt"):
