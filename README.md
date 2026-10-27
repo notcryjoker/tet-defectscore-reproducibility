@@ -1,7 +1,7 @@
 # TET DefectScore — Analysis Code & Supplementary Data
 
 > **Development source (GitHub):** https://github.com/notcryjoker/tet-defectscore-reproducibility (tag v1.1)
-> **Archival snapshot (Zenodo):** https://doi.org/10.5281/zenodo.23643504
+> **Archival snapshot (Zenodo):** https://doi.org/10.5281/zenodo.23685533
 
 **Reproducibility package** for the study *"Thymopoiesis DefectScore is not associated
 with myasthenia gravis status in thymic epithelial tumors"* (submitted to *Cancers*, MDPI).
